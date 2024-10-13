@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         op1Text = findViewById(R.id.op1)
         opText = findViewById(R.id.op)
         op2Text = findViewById(R.id.op2)
+        op1Text.text = "";
+        op2Text.text = "";
+        opText.text = "";
         findViewById<Button>(R.id.button0).setOnClickListener(this)
         findViewById<Button>(R.id.button1).setOnClickListener(this)
         findViewById<Button>(R.id.button2).setOnClickListener(this)
@@ -171,19 +174,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
     private fun calculate(operation: Int): Int{
         var result = 0
-        if (operation == 1){
-            result = op1 + op2
+        when (operation) {
+            1 -> {
+                result = op1 + op2
+            }
+            2 -> {
+                result = op1 - op2
+            }
+            3 -> {
+                result = op1 * op2
+            }
+            4 -> {
+                if (op2 == 0){
+                    screentText.text = "Error"
+                }
+                else{
+                    result = op1 / op2
+                    screentText.text = result.toString()
+                }
+            }
         }
-        else if (operation == 2){
-            result = op1 - op2
+        if (_operation != 4){
+            screentText.text = result.toString()
         }
-        else if (operation == 3){
-            result = op1 * op2
-        }
-        else if (operation == 4){
-            result = op1 / op2
-        }
-        screentText.text = result.toString()
         state = 1
         op2 = 0
         return result
